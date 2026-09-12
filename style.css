@@ -1,0 +1,310 @@
+:root {
+  --ink: #10151b;
+  --panel: #161d25;
+  --panel-raised: #1c242e;
+  --line: #2a3542;
+  --cloud: #eef1f4;
+  --mist: #8d99a6;
+  --sky: #4f8fc4;
+  --amber: #e2a545;
+  --storm: #c9705f;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--ink);
+  color: var(--cloud);
+  font-family: var(--font-body);
+}
+
+body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 20px;
+}
+
+.panel {
+  width: 100%;
+  max-width: 640px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Header */
+.panel-header {
+  padding: 22px 26px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.brand-mark {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sky);
+  box-shadow: 0 0 0 3px rgba(79, 143, 196, 0.18);
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--mist);
+}
+
+.search-form {
+  display: flex;
+  gap: 8px;
+}
+
+#city-input {
+  flex: 1;
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 12px 14px;
+  color: var(--cloud);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+#city-input::placeholder { color: #556170; }
+
+#city-input:focus {
+  border-color: var(--sky);
+}
+
+#search-btn {
+  background: var(--sky);
+  color: #0c1520;
+  border: none;
+  border-radius: 4px;
+  padding: 0 20px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+#search-btn:hover { filter: brightness(1.1); }
+#search-btn:active { filter: brightness(0.95); }
+
+/* Main / states */
+#main-view {
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.state { width: 100%; }
+.hidden { display: none !important; }
+
+#state-empty, #state-loading, #state-error {
+  padding: 60px 26px;
+  text-align: center;
+}
+
+.state-heading {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--cloud);
+}
+
+.state-body {
+  font-size: 14px;
+  color: var(--mist);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.dots span {
+  animation: blink 1.4s infinite;
+  opacity: 0;
+}
+.dots span:nth-child(2) { animation-delay: 0.2s; }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink {
+  0%, 20% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+#state-error .state-heading { color: var(--storm); }
+
+.retry-btn {
+  margin-top: 16px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--cloud);
+  padding: 9px 18px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  cursor: pointer;
+}
+.retry-btn:hover { border-color: var(--storm); }
+
+/* Data state */
+#state-data { padding: 30px 26px 26px; }
+
+.hero {
+  padding-bottom: 22px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-location h1 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 2px;
+  letter-spacing: -0.01em;
+}
+
+.hero-location p {
+  margin: 0 0 18px;
+  font-size: 13px;
+  color: var(--mist);
+}
+
+.hero-reading {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  line-height: 1;
+}
+
+.temp-number {
+  font-family: var(--font-display);
+  font-size: 76px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--cloud);
+}
+
+.temp-unit {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--mist);
+  margin-top: 10px;
+}
+
+.condition-text {
+  margin: 6px 0 0;
+  font-size: 15px;
+  color: var(--sky);
+  font-weight: 500;
+}
+
+/* Gauge row — instrument readout grid, not rounded SaaS cards */
+.gauge-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.gauge {
+  padding: 14px 12px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--panel-raised);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gauge:nth-child(3n) { border-right: none; }
+.gauge:nth-last-child(-n+3) { border-bottom: none; }
+
+.gauge-label {
+  font-size: 11.5px;
+  color: var(--mist);
+}
+
+.gauge-value {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--cloud);
+}
+
+/* Forecast */
+.forecast-title {
+  font-size: 12.5px;
+  color: var(--mist);
+  margin: 0 0 12px;
+}
+
+.forecast-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.forecast-day {
+  background: var(--panel-raised);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 12px 6px;
+  text-align: center;
+}
+
+.forecast-day-label {
+  font-size: 11px;
+  color: var(--mist);
+  margin-bottom: 8px;
+}
+
+.forecast-day-temps {
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.forecast-day-temps .lo { color: var(--mist); font-weight: 500; }
+
+/* Footer */
+.panel-footer {
+  padding: 14px 26px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: #4a5563;
+}
+
+@media (max-width: 480px) {
+  .temp-number { font-size: 58px; }
+  .gauge-row { grid-template-columns: repeat(2, 1fr); }
+  .gauge:nth-child(3n) { border-right: 1px solid var(--line); }
+  .gauge:nth-child(2n) { border-right: none; }
+  .gauge:nth-last-child(-n+3) { border-bottom: 1px solid var(--line); }
+  .gauge:nth-last-child(-n+2) { border-bottom: none; }
+  .forecast-strip { grid-template-columns: repeat(3, 1fr); gap: 8px; row-gap: 8px; }
+}

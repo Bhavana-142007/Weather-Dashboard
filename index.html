@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas — Weather Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="panel">
+
+    <header class="panel-header">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Atlas</span>
+      </div>
+      <form id="search-form" class="search-form" autocomplete="off">
+        <input
+          type="text"
+          id="city-input"
+          placeholder="Search a city — Bengaluru, Tokyo, Lagos…"
+          aria-label="Search for a city"
+        >
+        <button type="submit" id="search-btn">Read</button>
+      </form>
+    </header>
+
+    <main id="main-view">
+
+      <!-- Initial empty state -->
+      <section id="state-empty" class="state">
+        <p class="state-heading">No station selected</p>
+        <p class="state-body">Search a city above to pull its live conditions.</p>
+      </section>
+
+      <!-- Loading state -->
+      <section id="state-loading" class="state hidden">
+        <p class="state-heading">Reading instruments<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+      </section>
+
+      <!-- Error state -->
+      <section id="state-error" class="state hidden">
+        <p class="state-heading">Reading failed</p>
+        <p class="state-body" id="error-message">Something went wrong.</p>
+        <button id="retry-btn" class="retry-btn">Try again</button>
+      </section>
+
+      <!-- Data state -->
+      <section id="state-data" class="state hidden">
+
+        <div class="hero">
+          <div class="hero-location">
+            <h1 id="loc-name">—</h1>
+            <p id="loc-meta">—</p>
+          </div>
+          <div class="hero-reading">
+            <span id="temp-value" class="temp-number">—</span>
+            <span class="temp-unit">°C</span>
+          </div>
+          <p id="condition-text" class="condition-text">—</p>
+        </div>
+
+        <div class="gauge-row">
+          <div class="gauge">
+            <span class="gauge-label">Feels like</span>
+            <span class="gauge-value"><span id="feels-like">—</span>°</span>
+          </div>
+          <div class="gauge">
+            <span class="gauge-label">Humidity</span>
+            <span class="gauge-value"><span id="humidity">—</span>%</span>
+          </div>
+          <div class="gauge">
+            <span class="gauge-label">Wind speed</span>
+            <span class="gauge-value"><span id="wind-speed">—</span> km/h</span>
+          </div>
+          <div class="gauge">
+            <span class="gauge-label">Wind gusts</span>
+            <span class="gauge-value"><span id="wind-gusts">—</span> km/h</span>
+          </div>
+          <div class="gauge">
+            <span class="gauge-label">Pressure</span>
+            <span class="gauge-value"><span id="pressure">—</span> hPa</span>
+          </div>
+          <div class="gauge">
+            <span class="gauge-label">Cloud cover</span>
+            <span class="gauge-value"><span id="cloud-cover">—</span>%</span>
+          </div>
+        </div>
+
+        <div class="forecast-block">
+          <p class="forecast-title">Next 5 days</p>
+          <div id="forecast-strip" class="forecast-strip"></div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <footer class="panel-footer">
+      <span>Data — Open-Meteo</span>
+      <span id="last-updated"></span>
+    </footer>
+
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
